@@ -37,18 +37,6 @@ public class PersonController {
     }
 
     @PostMapping("/")
-//    public ResponseEntity<Person> create(@RequestBody Person person){
-//        return new ResponseEntity<Person>(new Person(), HttpStatus.CREATED);
-//    }
-
-//    public ResponseEntity<Person> create(@PathVariable String login){
-//        return new ResponseEntity<Person>(new Person(), HttpStatus.CREATED);
-//    }
-
-//    public ResponseEntity<Person> create(@PathVariable String login){
-//        return new ResponseEntity<Person>(new Person(), HttpStatus.CREATED);
-//    }
-
     public ResponseEntity<Person> create(@RequestBody Person person){
         return new ResponseEntity<Person>(
                 this.persons.save(person),
