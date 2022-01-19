@@ -22,9 +22,10 @@ public class PersonController {
 
     @GetMapping("/")
     public List<Person> findAll(){
-        return StreamSupport.stream(
-                this.persons.findAll().spliterator(), false
-        ).collect(Collectors.toList());
+        return persons.findAll();
+//        return StreamSupport.stream(
+//                this.persons.findAll().spliterator(), false
+//        ).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
