@@ -72,11 +72,11 @@
             <version>2.8.5</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.codehaus.jackson</groupId>-->
-<!--            <artifactId>jackson-core-asl</artifactId>-->
-<!--            <version>1.9.7</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.7</version>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -91,6 +91,11 @@
             <scope>test</scope>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.hibernate</groupId>-->
+<!--            <artifactId>hibernate-core</artifactId>-->
+<!--            <version>5.4.15.Final</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 

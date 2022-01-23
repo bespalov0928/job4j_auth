@@ -1,17 +1,19 @@
 package ru.job4j.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "person")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String login;
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     public Person(int id, String login, String password) {
         this.id = id;
@@ -22,6 +24,7 @@ public class Person {
         this.login = login;
         this.password = password;
     }
+
     public Person() {
     }
 
@@ -48,4 +51,13 @@ public class Person {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
 }
