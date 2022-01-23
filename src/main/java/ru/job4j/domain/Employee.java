@@ -17,7 +17,7 @@ public class Employee {
     private String inn;
     private Date datestart;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Person> persons = new ArrayList<>();
 
 
@@ -38,6 +38,10 @@ public class Employee {
 
     public void setPersons(Person person) {
         this.persons.add(person);
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

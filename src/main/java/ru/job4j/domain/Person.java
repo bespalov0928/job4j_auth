@@ -10,19 +10,20 @@ public class Person {
     private int id;
     private String login;
     private String password;
+    private int empid;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
-
-    public Person(int id, String login, String password) {
+    public Person(int id, String login, String password, int empid) {
         this.id = id;
         this.login = login;
         this.password = password;
+        this.empid = empid;
     }
-   public Person(String login, String password) {
+
+
+    public Person(String login, String password, int empid) {
         this.login = login;
         this.password = password;
+        this.empid = empid;
     }
 
     public Person() {
@@ -52,12 +53,11 @@ public class Person {
         this.password = password;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public int getEmpId() {
+        return empid;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmpId(int empId) {
+        this.empid = empid;
     }
-
 }

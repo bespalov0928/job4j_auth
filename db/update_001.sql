@@ -2,12 +2,13 @@ create table person (
                         id serial primary key not null,
                         login varchar(2000),
                         password varchar(2000),
-                        employee_id int not null references employee_id(id)
+                        empid int
+--                         employee_id int not null references employee_id(id)
 );
 
-insert into person (login, password, employee_id) values ('parsentev', '123', 1);
-insert into person (login, password, employee_id) values ('ban', '123', 2);
-insert into person (login, password, employee_id) values ('ivan', '123', 3);
+insert into person (login, password, empid) values ('parsentev', '123', 1);
+insert into person (login, password, empid) values ('ban', '123', 2);
+insert into person (login, password, empid) values ('ivan', '123', 3);
 
 
 create table employee (

@@ -12,7 +12,9 @@ import ru.job4j.domain.Person;
 import ru.job4j.service.EmployeeService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employee")
@@ -33,9 +35,6 @@ public class EmployeeController {
     public List<Employee> findAll() {
         List<Employee> rsl = new ArrayList<>();
         List<Employee> employeeList = service.findAll();
-        for (Employee emp:employeeList) {
-            rsl.add(new Employee(emp.getName(), emp.getLastname(), emp.getInn(), emp.getDatestart()));
-        }
         List<Person> personList = rest.exchange(
                 API,
                 HttpMethod.GET,
@@ -43,23 +42,34 @@ public class EmployeeController {
                 new ParameterizedTypeReference<List<Person>>() {
                 }).getBody();
 
+        for (Employee emp : employeeList) {
+            Employee empNew = new Employee(emp.getName(), emp.getLastname(), emp.getInn(), emp.getDatestart());
+            empNew.setId(emp.getId());
+            for (Person pers : personList) {
+                if (pers.getEmpId() != emp.getId()) {
+                    continue;
+                }
+                empNew.setPersons(pers);
+            }
+            rsl.add(empNew);
+        }
         return rsl;
     }
 
     @PostMapping("/")
-    public ResponseEntity<Person> create(@RequestBody Person person){
+    public ResponseEntity<Person> create(@RequestBody Person person) {
         Person rsl = rest.postForObject(API, person, Person.class);
         return new ResponseEntity<>(rsl, HttpStatus.CREATED);
     }
 
     @PutMapping("/")
-    public ResponseEntity<Void> update(@RequestBody Person person){
+    public ResponseEntity<Void> update(@RequestBody Person person) {
         rest.put(API, person);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id){
+    public ResponseEntity<Void> delete(@PathVariable int id) {
         rest.delete(API_ID, id);
         return ResponseEntity.ok().build();
     }

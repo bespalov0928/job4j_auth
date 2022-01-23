@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.domain.Person;
 import ru.job4j.repository.PersonRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,6 +22,7 @@ public class PersonService {
         return StreamSupport.stream(
                 this.persons.findAll().spliterator(), false
         ).collect(Collectors.toList());
+
     }
     public Optional<Person> findById(int id){
         return persons.findById(id);
