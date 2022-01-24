@@ -42,11 +42,14 @@ public class EmployeeController {
                 new ParameterizedTypeReference<List<Person>>() {
                 }).getBody();
 
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", "1");
+
         for (Employee emp : employeeList) {
             Employee empNew = new Employee(emp.getName(), emp.getLastname(), emp.getInn(), emp.getDatestart());
             empNew.setId(emp.getId());
             for (Person pers : personList) {
-                if (pers.getEmpId() != emp.getId()) {
+                if (pers.getEmpid() != emp.getId()) {
                     continue;
                 }
                 empNew.setPersons(pers);
@@ -54,6 +57,7 @@ public class EmployeeController {
             rsl.add(empNew);
         }
         return rsl;
+//        return employeeList;
     }
 
     @PostMapping("/")

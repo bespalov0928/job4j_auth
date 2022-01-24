@@ -3,7 +3,7 @@ package ru.job4j.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "person")
+@Table(name = "persons")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,11 +53,13 @@ public class Person {
         this.password = password;
     }
 
-    public int getEmpId() {
+    public int getEmpid() {
         return empid;
     }
 
-    public void setEmpId(int empId) {
+    public void setEmpid(int empId) {
         this.empid = empid;
     }
+
+
 }
