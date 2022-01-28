@@ -20,5 +20,8 @@
 
         <mapping class="ru.job4j.domain.Person" />
         <mapping class="ru.job4j.domain.Employee" />
+        <mapping class="ru.job4j.domain.Role" />
+        <mapping class="ru.job4j.domain.Room" />
+        <mapping class="ru.job4j.domain.Message" />
     </session-factory>
 </hibernate-configuration>

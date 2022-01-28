@@ -1,6 +1,8 @@
 package ru.job4j.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "persons")
@@ -11,6 +13,10 @@ public class Person {
     private String login;
     private String password;
     private int empid;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Role> roles = new ArrayList<>();
+
 
     public Person(int id, String login, String password, int empid) {
         this.id = id;
@@ -61,5 +67,11 @@ public class Person {
         this.empid = empid;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
 
+    public void setRoles(Role role) {
+        this.roles.add(role);
+    }
 }
