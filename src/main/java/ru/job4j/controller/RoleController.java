@@ -16,9 +16,6 @@ import java.util.Optional;
 @RequestMapping("/role")
 public class RoleController {
 
-    @Autowired
-    private RestTemplate rest;
-
     private final RoleService roleService;
 
     public RoleController(RoleService roleService) {
@@ -43,8 +40,6 @@ public class RoleController {
     @PostMapping("/")
     public ResponseEntity<Role> create(@RequestBody Role role) {
         System.out.println("PostMapping");
-//        return ResponseEntity.ok().build();
-
         ResponseEntity<Role> rsl = new ResponseEntity<Role>(
                 this.roleService.save(role),
                 HttpStatus.CREATED
