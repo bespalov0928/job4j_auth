@@ -57,17 +57,29 @@ public class EmployeeController {
             rsl.add(empNew);
         }
         return rsl;
-//        return employeeList;
     }
 
     @PostMapping("/")
     public ResponseEntity<Person> create(@RequestBody Person person) {
+        if (person.getPassword() == null) {
+            throw new NullPointerException("Password mustn't be empty");
+        }
+        if (person.getLogin() == null) {
+            throw new NullPointerException("Login amustn't be empty");
+        }
+
         Person rsl = rest.postForObject(API, person, Person.class);
         return new ResponseEntity<>(rsl, HttpStatus.CREATED);
     }
 
     @PutMapping("/")
     public ResponseEntity<Void> update(@RequestBody Person person) {
+        if (person.getPassword() == null) {
+            throw new NullPointerException("Password mustn't be empty");
+        }
+        if (person.getLogin() == null) {
+            throw new NullPointerException("Login amustn't be empty");
+        }
         rest.put(API, person);
         return ResponseEntity.ok().build();
     }

@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
+import ru.job4j.domain.Message;
 import ru.job4j.domain.Role;
 import ru.job4j.service.RoleService;
 
@@ -31,14 +33,19 @@ public class RoleController {
     @GetMapping("/{id}")
     public ResponseEntity<Role> findById(@PathVariable int id) {
         Optional<Role> role = this.roleService.findById(id);
-        return new ResponseEntity<Role>(
-                role.orElse(new Role()),
-                role.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
-                );
+        HttpStatus httpStatus = role.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+        ResponseEntity<Role> rsl = new ResponseEntity<Role>(
+                role.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "role is not found. Please, check ID.")),
+                httpStatus);
+        return rsl;
     }
 
     @PostMapping("/")
     public ResponseEntity<Role> create(@RequestBody Role role) {
+        if (role.getAuthority() == null) {
+            throw new NullPointerException("User mustn't be empty");
+        }
+
         System.out.println("PostMapping");
         ResponseEntity<Role> rsl = new ResponseEntity<Role>(
                 this.roleService.save(role),
