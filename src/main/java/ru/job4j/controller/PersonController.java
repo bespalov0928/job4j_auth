@@ -2,6 +2,7 @@ package ru.job4j.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -35,12 +37,11 @@ public class PersonController {
     @GetMapping("/{id}")
     public ResponseEntity<Person> findById(@PathVariable int id) {
         System.out.println("findById");
-        var person = this.persons.findById(id);
-        ResponseEntity<Person> response = new ResponseEntity<Person>(
-                person.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Person is not found. Please, check ID.")),
-                person.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
-        );
-        return response;
+        Optional<Person> person = this.persons.findById(id);
+        ResponseEntity<Person> entity = ResponseEntity.status(person.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(person.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Person is not found. Please, check ID.")));
+        return entity;
     }
 
     @PostMapping("/")
@@ -55,10 +56,11 @@ public class PersonController {
             throw new IllegalArgumentException("Invalid password. Password length must be more than 5 characters.");
         }
 
-        return new ResponseEntity<Person>(
-                this.persons.save(person),
-                HttpStatus.CREATED
-        );
+        Person personNew = this.persons.save(person);
+        ResponseEntity<Person> entity = ResponseEntity.status(HttpStatus.CREATED)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(personNew);
+        return entity;
     }
 
     @PutMapping("/")
