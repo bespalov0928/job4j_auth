@@ -27,6 +27,10 @@ public class Employee {
         this.inn = inn;
         this.datestart = datestart;
     }
+    public Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Employee() {
 
@@ -62,5 +66,21 @@ public class Employee {
 
     public Date getDatestart() {
         return datestart;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setInn(String inn) {
+        this.inn = inn;
+    }
+
+    public void setDatestart(Date datestart) {
+        this.datestart = datestart;
     }
 }

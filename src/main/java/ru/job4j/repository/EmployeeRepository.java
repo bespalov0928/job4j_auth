@@ -11,4 +11,6 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
     @Query("select distinct a from Employee as a join fetch a.persons")
     List<Employee> findAll();
 
+
+
 }

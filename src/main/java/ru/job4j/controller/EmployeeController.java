@@ -2,19 +2,17 @@ package ru.job4j.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 import ru.job4j.domain.Employee;
 import ru.job4j.domain.Person;
 import ru.job4j.service.EmployeeService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 
 @RestController
 @RequestMapping("/employee")
@@ -33,6 +31,7 @@ public class EmployeeController {
 
     @GetMapping("/")
     public List<Employee> findAll() {
+        System.out.println("findAll");
         List<Employee> rsl = new ArrayList<>();
         List<Employee> employeeList = service.findAll();
         List<Person> personList = rest.exchange(
@@ -57,6 +56,15 @@ public class EmployeeController {
             rsl.add(empNew);
         }
         return rsl;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> findById(@PathVariable int id) {
+
+        ResponseEntity<Employee> rsl = null;
+
+        return rsl;
+
     }
 
     @PostMapping("/")
@@ -90,4 +98,15 @@ public class EmployeeController {
         return ResponseEntity.ok().build();
     }
 
+    @PatchMapping("/")
+    public ResponseEntity<Employee> updatePatch(@RequestBody Employee employee) throws InvocationTargetException, IllegalAccessException {
+        System.out.println("updatePatchController");
+        ResponseEntity<Employee> rsl = null;
+
+        Employee employeeUpdate = service.updatePatch(employee);
+        rsl = ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(employeeUpdate);
+        return rsl;
+    }
 }

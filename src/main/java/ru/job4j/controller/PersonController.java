@@ -12,6 +12,7 @@ import ru.job4j.service.PersonService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -96,5 +97,17 @@ public class PersonController {
             put("message", e.getMessage());
             put("type", e.getClass());
         }}));
+    }
+
+    @PatchMapping("/")
+    public ResponseEntity<Person> updatePatch(@RequestBody Person person) throws InvocationTargetException, IllegalAccessException {
+        System.out.println("updatePatchController");
+        ResponseEntity<Person> rsl = null;
+
+        Person employeeUpdate = persons.updatePatch(person);
+        rsl = ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(employeeUpdate);
+        return rsl;
     }
 }
