@@ -1,6 +1,7 @@
 package ru.job4j.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "message")
@@ -17,7 +18,7 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
-
+    @Size(min = 10, max = 200, message = "Message Me must be between 10 and 200 characters")
     private String mes;
 
     public int getId() {

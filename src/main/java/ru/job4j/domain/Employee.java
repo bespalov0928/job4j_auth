@@ -1,6 +1,12 @@
 package ru.job4j.domain;
 
+import ru.job4j.Operation;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,9 +18,15 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
+    @NotNull(message = "Name must be non null", groups = {Operation.OnCreate.class})
     private String name;
+
+    @NotNull(message = "Lastname must be non null", groups = {Operation.OnCreate.class})
     private String lastname;
+
+    @Size(min = 10, max = 12, message = "About Me must be between 10 and 12 characters")
     private String inn;
+
     private Date datestart;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

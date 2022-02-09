@@ -1,6 +1,9 @@
 package ru.job4j.domain;
 
+import ru.job4j.Operation;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Entity
@@ -9,8 +12,13 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotNull(message = "Login must be non null", groups = {Operation.OnCreate.class})
     private String login;
+
+    @NotNull(message = "Password must be non null", groups = {Operation.OnCreate.class})
     private String password;
+
     private int empid;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

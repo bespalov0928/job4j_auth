@@ -4,13 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import ru.job4j.Operation;
 import ru.job4j.domain.Person;
 import ru.job4j.service.PersonService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -46,7 +49,8 @@ public class PersonController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Person> create(@RequestBody Person person) {
+    @Validated(Operation.OnCreate.class)
+    public ResponseEntity<Person> create(@Valid @RequestBody Person person) {
         if (person.getPassword() == null) {
             throw new NullPointerException("Password mustn't be empty");
         }
@@ -65,7 +69,8 @@ public class PersonController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<Void> update(@RequestBody Person person) {
+    @Validated(Operation.OnUpdate.class)
+    public ResponseEntity<Void> update(@Valid  @RequestBody Person person) {
 
         if (person.getPassword() == null) {
             throw new NullPointerException("Password and password mustn't be empty");
@@ -100,7 +105,8 @@ public class PersonController {
     }
 
     @PatchMapping("/")
-    public ResponseEntity<Person> updatePatch(@RequestBody Person person) throws InvocationTargetException, IllegalAccessException {
+    @Validated(Operation.OnUpdate.class)
+    public ResponseEntity<Person> updatePatch(@Valid @RequestBody Person person) throws InvocationTargetException, IllegalAccessException {
         System.out.println("updatePatchController");
         ResponseEntity<Person> rsl = null;
 

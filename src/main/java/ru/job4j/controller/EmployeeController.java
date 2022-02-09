@@ -3,13 +3,16 @@ package ru.job4j.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
+import ru.job4j.Operation;
 import ru.job4j.domain.Employee;
 import ru.job4j.domain.Person;
 import ru.job4j.service.EmployeeService;
 
+import javax.validation.Valid;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -68,7 +71,8 @@ public class EmployeeController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Person> create(@RequestBody Person person) {
+    @Validated(Operation.OnCreate.class)
+    public ResponseEntity<Person> create(@Valid @RequestBody Person person) {
         if (person.getPassword() == null) {
             throw new NullPointerException("Password mustn't be empty");
         }
@@ -81,7 +85,8 @@ public class EmployeeController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<Void> update(@RequestBody Person person) {
+    @Validated(Operation.OnUpdate.class)
+    public ResponseEntity<Void> update(@Valid @RequestBody Person person) {
         if (person.getPassword() == null) {
             throw new NullPointerException("Password mustn't be empty");
         }
@@ -93,13 +98,14 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) {
+      public ResponseEntity<Void> delete(@PathVariable int id) {
         rest.delete(API_ID, id);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/")
-    public ResponseEntity<Employee> updatePatch(@RequestBody Employee employee) throws InvocationTargetException, IllegalAccessException {
+    @Validated(Operation.OnUpdate.class)
+    public ResponseEntity<Employee> updatePatch(@Valid @RequestBody Employee employee) throws InvocationTargetException, IllegalAccessException {
         System.out.println("updatePatchController");
         ResponseEntity<Employee> rsl = null;
 
