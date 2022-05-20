@@ -42,6 +42,7 @@ public class RoleController {
 
     @PostMapping("/")
     public ResponseEntity<Role> create(@RequestBody Role role) {
+        System.out.println("create");
         if (role.getAuthority() == null) {
             throw new NullPointerException("User mustn't be empty");
         }

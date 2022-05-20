@@ -54,7 +54,7 @@ public class PersonController {
         if (person.getPassword() == null) {
             throw new NullPointerException("Password mustn't be empty");
         }
-        if (person.getLogin() == null) {
+        if (person.getUsername() == null) {
             throw new NullPointerException("Login amustn't be empty");
         }
         if (person.getPassword().length() < 6) {
@@ -75,7 +75,7 @@ public class PersonController {
         if (person.getPassword() == null) {
             throw new NullPointerException("Password and password mustn't be empty");
         }
-        if (person.getLogin() == null) {
+        if (person.getUsername() == null) {
             throw new NullPointerException("Login and password mustn't be empty");
         }
         if (person.getPassword().length() < 6) {

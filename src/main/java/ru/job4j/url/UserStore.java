@@ -11,7 +11,7 @@ public class UserStore {
     private final ConcurrentHashMap<String, Person> users = new ConcurrentHashMap<>();
 
     public void save(Person person) {
-        users.put(person.getLogin(), person);
+        users.put(person.getUsername(), person);
     }
 
 

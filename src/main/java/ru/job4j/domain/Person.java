@@ -14,7 +14,7 @@ public class Person {
     private int id;
 
     @NotNull(message = "Login must be non null", groups = {Operation.OnCreate.class})
-    private String login;
+    private String username;
 
     @NotNull(message = "Password must be non null", groups = {Operation.OnCreate.class})
     private String password;
@@ -25,16 +25,16 @@ public class Person {
     private Set<Role> roles = new HashSet<Role>();
 
 
-    public Person(int id, String login, String password, int empid) {
+    public Person(int id, String username, String password, int empid) {
         this.id = id;
-        this.login = login;
+        this.username = username;
         this.password = password;
         this.empid = empid;
     }
 
 
-    public Person(String login, String password) {
-        this.login = login;
+    public Person(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
@@ -49,12 +49,12 @@ public class Person {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String login) {
+        this.username = login;
     }
 
     public String getPassword() {
@@ -90,11 +90,11 @@ public class Person {
             return false;
         }
         Person person = (Person) o;
-        return Objects.equals(login, person.login) && Objects.equals(password, person.password);
+        return Objects.equals(username, person.username) && Objects.equals(password, person.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password);
+        return Objects.hash(username, password);
     }
 }

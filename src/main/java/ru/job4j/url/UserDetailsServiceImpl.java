@@ -6,14 +6,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.job4j.domain.Person;
+import ru.job4j.service.PersonService;
 
 import static java.util.Collections.emptyList;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private UserStore users;
+    private PersonService users;
 
-    public UserDetailsServiceImpl(UserStore users) {
+    public UserDetailsServiceImpl(PersonService users) {
         this.users = users;
     }
 
@@ -23,6 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new User(user.getLogin(), user.getPassword(), emptyList());
+        return new User(user.getUsername(), user.getPassword(), emptyList());
     }
 }

@@ -23,23 +23,24 @@ public class PersonService {
         this.persons = persons;
     }
 
-    public List<Person> findAll(){
+    public List<Person> findAll() {
         return StreamSupport.stream(
                 this.persons.findAll().spliterator(), false
         ).collect(Collectors.toList());
 
     }
-    public Optional<Person> findById(int id){
+
+    public Optional<Person> findById(int id) {
         return persons.findById(id);
     }
 
-   public Person save(Person person){
+    public Person save(Person person) {
         return persons.save(person);
     }
 
-   public void delete(Person person){
-       persons.delete(person);
-   }
+    public void delete(Person person) {
+        persons.delete(person);
+    }
 
     public Person updatePatch(Person person) throws InvocationTargetException, IllegalAccessException {
         System.out.println("updatePatchService");
@@ -76,5 +77,8 @@ public class PersonService {
 
     }
 
+    public Person findByUsername(String username) {
+        return persons.findByUsername(username);
+    }
 
 }

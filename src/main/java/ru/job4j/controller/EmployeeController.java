@@ -76,7 +76,7 @@ public class EmployeeController {
         if (person.getPassword() == null) {
             throw new NullPointerException("Password mustn't be empty");
         }
-        if (person.getLogin() == null) {
+        if (person.getUsername() == null) {
             throw new NullPointerException("Login amustn't be empty");
         }
 
@@ -90,7 +90,7 @@ public class EmployeeController {
         if (person.getPassword() == null) {
             throw new NullPointerException("Password mustn't be empty");
         }
-        if (person.getLogin() == null) {
+        if (person.getUsername() == null) {
             throw new NullPointerException("Login amustn't be empty");
         }
         rest.put(API, person);
