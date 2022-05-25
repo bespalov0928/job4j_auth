@@ -83,3 +83,32 @@ curl -i -H "Content-Type: application/json" -X POST -d '{
 ```
 curl -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiZXNwYWxvdiIsImV4cCI6MTY1Mzg0NjQxN30.8ise2_1wbq0Mtt1rNxcVwvVJOoRSfeVLEaG0h9oXGIELoPemvk0LFttfEC5QxQw0_3oOovJh-44njpt8Fbyutg" http://localhost:80/message/
 ```
+
+### Запуск в K8S
+
+#### Создаем secret
+```
+kubectl apply -f postgresdb-secret.yml
+```
+### Создаем ConfigMap
+```
+kubectl apply -f postgresdb-configmap.yml
+```
+### Создаем Deployment для Postgres
+```
+kubectl apply -f postgresdb-deployment.yml
+```
+### Создаем Deployment для Spring-boot
+```
+kubectl apply -f spring-deployment.yml
+```
+### Проверяем работу приложения
+````
+kubectl get service
+````
+### Получаем адрес для подключения к приложению
+````
+minikube service --url spring-boot-service
+````
+
+
